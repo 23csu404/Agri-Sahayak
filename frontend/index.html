@@ -1,0 +1,748 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f8f1">
+
+    <title>AgriSahayak | Smart Farming Assistant</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+<!-- =====================================
+     DEMO LOGIN SCREEN
+===================================== -->
+
+<section id="loginScreen" class="login-screen">
+
+    <div class="login-card">
+
+        <div class="login-brand">
+            <div class="brand-icon">🌱</div>
+            <h1>AgriSahayak</h1>
+            <p>Smart Farming Platform</p>
+        </div>
+
+        <div id="phoneLoginSection">
+
+            <h2>Welcome, Farmer!</h2>
+            <p>Login to access your personalized farming dashboard.</p>
+
+            <label for="loginPhone">Mobile Number</label>
+
+            <div class="phone-input">
+                <span>+91</span>
+
+                <input
+                    type="tel"
+                    id="loginPhone"
+                    placeholder="Enter 10-digit mobile number"
+                    maxlength="10"
+                    inputmode="numeric"
+                >
+            </div>
+
+            <button type="button" id="sendOtpBtn" class="primary-btn login-btn">
+                Continue
+            </button>
+
+        </div>
+
+        <div id="otpLoginSection" hidden>
+
+            <h2>Verify Mobile Number</h2>
+
+            <p>Enter the demo OTP to continue.</p>
+
+            <label for="demoOtp">Enter OTP</label>
+
+            <input
+                type="text"
+                id="demoOtp"
+                class="otp-input"
+                placeholder="Enter 6-digit OTP"
+                maxlength="6"
+                inputmode="numeric"
+            >
+
+            <p class="demo-otp-note">
+                Demo OTP: <strong>123456</strong>
+            </p>
+
+            <button type="button" id="verifyOtpBtn" class="primary-btn login-btn">
+                Verify & Login
+            </button>
+
+            <button type="button" id="backToPhoneBtn" class="login-back-btn">
+                Change Mobile Number
+            </button>
+
+        </div>
+
+        <p id="loginError" class="login-error" role="alert" hidden></p>
+
+        <div class="demo-notice">
+            Demo Login · Real OTP authentication will be added later.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     MAIN APPLICATION
+===================================== -->
+
+<div class="app-container" id="appContainer" hidden>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-icon">🌱</div>
+
+            <div>
+                <h2>AgriSahayak</h2>
+
+                <span data-en="Smart Farming Platform"
+                      data-hi="स्मार्ट खेती प्लेटफॉर्म">
+                    Smart Farming Platform
+                </span>
+            </div>
+
+        </div>
+
+        <div class="nav-heading"
+             data-en="MAIN MENU"
+             data-hi="मुख्य मेन्यू">
+            MAIN MENU
+        </div>
+
+        <nav class="navigation">
+
+            <a href="#dashboard" class="nav-link active">
+                <i data-lucide="layout-dashboard"></i>
+                <span data-en="Dashboard" data-hi="डैशबोर्ड">Dashboard</span>
+            </a>
+
+            <a href="#detection" class="nav-link">
+                <i data-lucide="scan-search"></i>
+                <span data-en="Crop Disease Detection"
+                      data-hi="फसल रोग पहचान">
+                    Crop Disease Detection
+                </span>
+            </a>
+
+            <a href="#farmer" class="nav-link">
+                <i data-lucide="user-round"></i>
+                <span data-en="Farmer Profile"
+                      data-hi="किसान प्रोफाइल">
+                    Farmer Profile
+                </span>
+            </a>
+
+            <a href="#crops" class="nav-link">
+                <i data-lucide="sprout"></i>
+                <span data-en="Crop Information"
+                      data-hi="फसल की जानकारी">
+                    Crop Information
+                </span>
+            </a>
+
+            <a href="#schemes" class="nav-link">
+                <i data-lucide="landmark"></i>
+                <span data-en="Government Schemes"
+                      data-hi="सरकारी योजनाएँ">
+                    Government Schemes
+                </span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="help-card">
+
+                <span class="help-icon">🌾</span>
+
+                <h3 data-en="Growing better, together."
+                    data-hi="बेहतर खेती, साथ मिलकर।">
+                    Growing better, together.
+                </h3>
+
+                <p data-en="Technology for every farmer."
+                   data-hi="हर किसान के लिए तकनीक।">
+                    Technology for every farmer.
+                </p>
+
+            </div>
+
+            <p class="version">AgriSahayak v1.0</p>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div class="breadcrumb">
+                <span data-en="Home" data-hi="होम">Home</span>
+                <span>/</span>
+                <strong data-en="Dashboard" data-hi="डैशबोर्ड">Dashboard</strong>
+            </div>
+
+            <div class="top-actions">
+
+                <button class="language-btn" id="languageToggle">
+                    <i data-lucide="languages"></i>
+                    <span id="languageLabel">हिंदी</span>
+                </button>
+
+                <div class="profile-avatar">👨‍🌾</div>
+
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD -->
+
+        <section id="dashboard" class="page-section">
+
+            <div class="welcome-banner">
+
+                <div class="welcome-text">
+
+                    <span class="eyebrow"
+                          data-en="YOUR DIGITAL FARMING COMPANION"
+                          data-hi="आपका डिजिटल खेती साथी">
+                        YOUR DIGITAL FARMING COMPANION
+                    </span>
+
+                    <h1 data-en="Welcome to AgriSahayak 🌱"
+                        data-hi="AgriSahayak में आपका स्वागत है 🌱">
+                        Welcome to AgriSahayak 🌱
+                    </h1>
+
+                    <p data-en="Smarter decisions today. Better harvests tomorrow."
+                       data-hi="आज बेहतर फैसले। कल बेहतर फसल।">
+                        Smarter decisions today. Better harvests tomorrow.
+                    </p>
+
+                    <a href="#detection" class="primary-btn">
+
+                        <span data-en="Explore Crop Detection"
+                              data-hi="फसल की जाँच करें">
+                            Explore Crop Detection
+                        </span>
+
+                        <i data-lucide="arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+                <div class="welcome-illustration">🌾</div>
+
+            </div>
+
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2 data-en="Your Farming Toolkit"
+                        data-hi="आपके खेती के टूल्स">
+                        Your Farming Toolkit
+                    </h2>
+
+                    <p data-en="Everything you need, in one place."
+                       data-hi="खेती से जुड़ी जरूरी सुविधाएँ, एक ही जगह।">
+                        Everything you need, in one place.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FEATURE CARDS -->
+
+            <div class="feature-grid">
+
+                <a href="#detection" class="feature-card">
+
+                    <div class="feature-icon green">
+                        <i data-lucide="scan-search"></i>
+                    </div>
+
+                    <span class="card-arrow">
+                        <i data-lucide="arrow-up-right"></i>
+                    </span>
+
+                    <h3 data-en="Crop Disease Detection"
+                        data-hi="फसल रोग पहचान">
+                        Crop Disease Detection
+                    </h3>
+
+                    <p data-en="Upload a crop image and identify possible diseases using AI."
+                       data-hi="फसल की फोटो अपलोड करें और AI से संभावित बीमारी पहचानें।">
+                        Upload a crop image and identify possible diseases using AI.
+                    </p>
+
+                    <span class="card-link"
+                          data-en="Start Detection →"
+                          data-hi="जाँच शुरू करें →">
+                        Start Detection →
+                    </span>
+
+                </a>
+
+
+                <a href="#farmer" class="feature-card">
+
+                    <div class="feature-icon orange">
+                        <i data-lucide="user-round"></i>
+                    </div>
+
+                    <span class="card-arrow">
+                        <i data-lucide="arrow-up-right"></i>
+                    </span>
+
+                    <h3 data-en="Farmer Profile"
+                        data-hi="किसान प्रोफाइल">
+                        Farmer Profile
+                    </h3>
+
+                    <p data-en="Register and manage your personal farming information."
+                       data-hi="अपनी जानकारी दर्ज करें और किसान प्रोफाइल बनाएँ।">
+                        Register and manage your personal farming information.
+                    </p>
+
+                    <span class="card-link"
+                          data-en="View Profile →"
+                          data-hi="प्रोफाइल देखें →">
+                        View Profile →
+                    </span>
+
+                </a>
+
+
+                <a href="#crops" class="feature-card">
+
+                    <div class="feature-icon blue">
+                        <i data-lucide="sprout"></i>
+                    </div>
+
+                    <span class="card-arrow">
+                        <i data-lucide="arrow-up-right"></i>
+                    </span>
+
+                    <h3 data-en="Crop Information"
+                        data-hi="फसल की जानकारी">
+                        Crop Information
+                    </h3>
+
+                    <p data-en="Explore crop details, growing conditions and useful guidance."
+                       data-hi="फसलों, उनकी खेती और जरूरी जानकारी के बारे में जानें।">
+                        Explore crop details, growing conditions and useful guidance.
+                    </p>
+
+                    <span class="card-link"
+                          data-en="Explore Crops →"
+                          data-hi="फसलें देखें →">
+                        Explore Crops →
+                    </span>
+
+                </a>
+
+
+                <a href="#schemes" class="feature-card">
+
+                    <div class="feature-icon purple">
+                        <i data-lucide="landmark"></i>
+                    </div>
+
+                    <span class="card-arrow">
+                        <i data-lucide="arrow-up-right"></i>
+                    </span>
+
+                    <h3 data-en="Government Schemes"
+                        data-hi="सरकारी योजनाएँ">
+                        Government Schemes
+                    </h3>
+
+                    <p data-en="Discover government schemes and financial support for farmers."
+                       data-hi="किसानों के लिए सरकारी योजनाएँ और आर्थिक सहायता जानें।">
+                        Discover government schemes and financial support for farmers.
+                    </p>
+
+                    <span class="card-link"
+                          data-en="Explore Schemes →"
+                          data-hi="योजनाएँ देखें →">
+                        Explore Schemes →
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- BOTTOM BANNER -->
+
+            <div class="bottom-banner">
+
+                <div>
+
+                    <span class="eyebrow"
+                          data-en="FARMER FIRST"
+                          data-hi="किसान सबसे पहले">
+                        FARMER FIRST
+                    </span>
+
+                    <h2 data-en="Making farming simpler with technology."
+                        data-hi="तकनीक से खेती को आसान बनाना।">
+                        Making farming simpler with technology.
+                    </h2>
+
+                    <p data-en="Access useful agricultural information and tools whenever you need them."
+                       data-hi="जब भी जरूरत हो, खेती से जुड़ी उपयोगी जानकारी और टूल्स पाएँ।">
+                        Access useful agricultural information and tools whenever you need them.
+                    </p>
+
+                </div>
+
+                <div class="bottom-emoji">🌻</div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CROP DISEASE DETECTION -->
+
+        <section id="detection" class="placeholder-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="eyebrow">AI POWERED ANALYSIS</span>
+
+                    <h2 data-en="Crop Disease Detection 🌱"
+                        data-hi="फसल रोग पहचान 🌱">
+                        Crop Disease Detection 🌱
+                    </h2>
+
+                    <p data-en="Upload a clear picture of your crop leaf to identify its crop type and possible disease."
+                       data-hi="फसल और संभावित बीमारी की पहचान के लिए पत्ते की साफ फोटो अपलोड करें।">
+                        Upload a clear picture of your crop leaf to identify its crop type and possible disease.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="detection-card">
+
+                <div class="upload-area" id="uploadArea">
+
+                    <div class="feature-icon green">
+                        <i data-lucide="image-plus"></i>
+                    </div>
+
+                    <h3 data-en="Upload Crop Image"
+                        data-hi="फसल की फोटो अपलोड करें">
+                        Upload Crop Image
+                    </h3>
+
+                    <p data-en="Select a clear image of an Apple, Potato or Tomato leaf."
+                       data-hi="सेब, आलू या टमाटर के पत्ते की साफ फोटो चुनें।">
+                        Select a clear image of an Apple, Potato or Tomato leaf.
+                    </p>
+
+                    <input
+                        type="file"
+                        id="cropImageInput"
+                        accept="image/png,image/jpeg,image/jpg,image/webp"
+                        hidden
+                    >
+
+                    <button type="button"
+                            class="primary-btn"
+                            id="chooseImageBtn">
+
+                        <i data-lucide="upload"></i>
+
+                        <span data-en="Choose Image"
+                              data-hi="फोटो चुनें">
+                            Choose Image
+                        </span>
+
+                    </button>
+
+                    <p class="upload-hint">
+                        JPG, PNG or WEBP · Maximum 10 MB
+                    </p>
+
+                </div>
+
+
+                <!-- IMAGE PREVIEW -->
+
+                <div id="imagePreviewContainer" hidden>
+
+                    <h3 data-en="Selected Image"
+                        data-hi="चुनी गई फोटो">
+                        Selected Image
+                    </h3>
+
+                    <img
+                        id="cropImagePreview"
+                        alt="Selected crop leaf preview"
+                        style="max-width:100%; max-height:300px; object-fit:contain;"
+                    >
+
+                    <div>
+
+                        <button type="button"
+                                class="primary-btn"
+                                id="analyzeCropBtn">
+
+                            <i data-lucide="scan-search"></i>
+
+                            <span data-en="Analyze Crop"
+                                  data-hi="फसल की जाँच करें">
+                                Analyze Crop
+                            </span>
+
+                        </button>
+
+                        <button type="button" id="removeCropImageBtn">
+                            <span data-en="Remove Image"
+                                  data-hi="फोटो हटाएँ">
+                                Remove Image
+                            </span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOADING -->
+
+                <div id="detectionLoading" hidden>
+
+                    <p data-en="Analyzing your crop image... Please wait."
+                       data-hi="आपकी फसल की जाँच हो रही है... कृपया प्रतीक्षा करें।">
+                        Analyzing your crop image... Please wait.
+                    </p>
+
+                </div>
+
+
+                <!-- ERROR -->
+
+                <div id="detectionError" role="alert" hidden></div>
+
+
+                <!-- PREDICTION RESULTS -->
+
+                <div id="detectionResult" class="detection-result" hidden>
+
+                    <h3 data-en="Analysis Results"
+                        data-hi="जाँच का परिणाम">
+                        Analysis Results
+                    </h3>
+
+                    <div class="result-item">
+                        <span data-en="Crop Type" data-hi="फसल का प्रकार">Crop Type</span>
+                        <strong id="resultCrop">-</strong>
+                    </div>
+
+                    <div class="result-item">
+                        <span data-en="Disease" data-hi="बीमारी">Disease</span>
+                        <strong id="resultDisease">-</strong>
+                    </div>
+
+                    <div class="result-item">
+                        <span data-en="Confidence" data-hi="विश्वास स्तर">Confidence</span>
+                        <strong id="resultConfidence">-</strong>
+                    </div>
+
+                    <div class="result-item">
+                        <span data-en="Status" data-hi="स्थिति">Status</span>
+                        <strong id="resultStatus">-</strong>
+                    </div>
+
+
+                    <!-- DISEASE GUIDANCE -->
+
+                    <div id="diseaseGuidance" class="disease-guidance" hidden>
+
+                        <h3 data-en="Disease Information"
+                            data-hi="बीमारी की जानकारी">
+                            Disease Information
+                        </h3>
+
+                        <div class="guidance-card">
+
+                            <h4 data-en="What causes this disease?"
+                                data-hi="बीमारी का कारण">
+                                What causes this disease?
+                            </h4>
+
+                            <p id="resultCause">-</p>
+
+                        </div>
+
+                        <div class="guidance-card">
+
+                            <h4 data-en="Symptoms"
+                                data-hi="लक्षण">
+                                Symptoms
+                            </h4>
+
+                            <ul id="resultSymptoms"></ul>
+
+                        </div>
+
+                        <div class="guidance-card">
+
+                            <h4 data-en="Prevention"
+                                data-hi="बचाव के तरीके">
+                                Prevention
+                            </h4>
+
+                            <ul id="resultPrevention"></ul>
+
+                        </div>
+
+                        <div class="guidance-card advice-card">
+
+                            <h4 data-en="Expert Advice"
+                                data-hi="विशेषज्ञ की सलाह">
+                                Expert Advice
+                            </h4>
+
+                            <p id="resultAdvice">-</p>
+
+                        </div>
+
+                    </div>
+
+
+                    <p class="upload-hint"
+                       data-en="AI predictions are preliminary. Verify the result with a local KVK or agriculture expert before taking crop-treatment decisions."
+                       data-hi="AI का परिणाम प्रारंभिक है। फसल के उपचार का निर्णय लेने से पहले स्थानीय कृषि विशेषज्ञ या KVK से इसकी पुष्टि करें।">
+
+                        AI predictions are preliminary. Verify the result with a local KVK or agriculture expert before taking crop-treatment decisions.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FARMER PROFILE -->
+
+        <section id="farmer" class="placeholder-section">
+
+            <h2 data-en="Farmer Profile"
+                data-hi="किसान प्रोफाइल">
+                Farmer Profile
+            </h2>
+
+            <p data-en="Farmer registration and profile management."
+               data-hi="किसान पंजीकरण और प्रोफाइल प्रबंधन।">
+                Farmer registration and profile management.
+            </p>
+
+        </section>
+
+
+        <!-- CROP INFORMATION -->
+
+        <section id="crops" class="placeholder-section">
+
+            <h2 data-en="Crop Information"
+                data-hi="फसल की जानकारी">
+                Crop Information
+            </h2>
+
+            <p data-en="Agricultural crop information will appear here."
+               data-hi="फसलों से जुड़ी जानकारी यहाँ दिखाई जाएगी।">
+                Agricultural crop information will appear here.
+            </p>
+
+        </section>
+
+
+        <!-- GOVERNMENT SCHEMES -->
+
+        <section id="schemes" class="placeholder-section">
+
+            <h2 data-en="Government Schemes"
+                data-hi="सरकारी योजनाएँ">
+                Government Schemes
+            </h2>
+
+            <p data-en="Government schemes will be loaded here."
+               data-hi="सरकारी योजनाएँ यहाँ दिखाई जाएँगी।">
+                Government schemes will be loaded here.
+            </p>
+
+        </section>
+
+
+        <!-- FOOTER -->
+
+        <footer class="footer">
+
+            © 2026 AgriSahayak ·
+
+            <span data-en="Empowering Indian Farmers"
+                  data-hi="भारतीय किसानों को सशक्त बनाना">
+                Empowering Indian Farmers
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+
+<script src="app.js"></script>
+
+</body>
+</html>

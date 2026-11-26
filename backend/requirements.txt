@@ -1,0 +1,11 @@
+
+fastapi
+uvicorn[standard]
+python-multipart
+python-dotenv
+pydantic
+pydantic-settings
+pillow
+numpy
+supabase
+tensorflow

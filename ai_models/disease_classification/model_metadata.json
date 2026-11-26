@@ -1,0 +1,9 @@
+{
+    "project": "AgriSahayak",
+    "model": "agrisahayak_finetuned_best.keras",
+    "test_accuracy": 95.58,
+    "total_test_images": 4658,
+    "correct_predictions": 4452,
+    "incorrect_predictions": 206,
+    "number_of_classes": 17
+}
